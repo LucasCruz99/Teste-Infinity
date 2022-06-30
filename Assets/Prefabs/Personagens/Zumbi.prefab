@@ -629,7 +629,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2ffa05e85c3fa744ac5231319086d19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vel: 0.5
+  vel: 1
 --- !u!136 &5402591002974147904
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -640,10 +640,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.64460945
-  m_Height: 3.0315485
+  m_Radius: 0.78607464
+  m_Height: 3.4397411
   m_Direction: 1
-  m_Center: {x: 0.0120277405, y: 1.4779541, z: 0}
+  m_Center: {x: -0.036580086, y: 1.6820505, z: 0}
 --- !u!54 &6926411738988528711
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3222,7 +3222,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4988906051635322
 Transform:
   m_ObjectHideFlags: 0

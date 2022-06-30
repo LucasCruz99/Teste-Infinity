@@ -11,7 +11,6 @@ public class Pool : MonoBehaviour
         public int Size;
         public string Tag;
         public GameObject Obj;
-
     }
     #endregion
 

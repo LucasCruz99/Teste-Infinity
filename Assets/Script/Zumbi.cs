@@ -4,21 +4,34 @@ using UnityEngine;
 
 public class Zumbi : MonoBehaviour
 {
+    #region Variable
     Rigidbody ZumbiRigidbody;
     Vector3 PlayerDir;
     public float vel;
+    public static Zumbi instance;
+    #endregion
 
-    // Start is called before the first frame update
+    private void Awake()
+    {
+        instance = this;
+    }
+
+
+    #region start
     void Start()
     {
         ZumbiRigidbody = GetComponent<Rigidbody>();
     }
+    #endregion
 
-    // Update is called once per frame
+    #region Update
     void Update()
     {
         FollowPlayer();
     }
+    #endregion
+
+    #region FollowPlayer
     void FollowPlayer()
     {
 
@@ -27,4 +40,5 @@ public class Zumbi : MonoBehaviour
         GetComponent<Rigidbody>().MovePosition(GetComponent<Rigidbody>().position + PlayerDir.normalized * vel * Time.deltaTime);
 
     }
+    #endregion
 }
