@@ -2594,6 +2594,8 @@ MonoBehaviour:
   Desert: {fileID: 1541026520474497734}
   ArmaDePregos: {fileID: 7694435048281217388}
   Revolve: {fileID: 6594926770876924309}
+  Pontos: 0
+  DelayShot: 1
 --- !u!95 &7828522760214119472
 Animator:
   serializedVersion: 3

@@ -1402,6 +1402,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maouseCurso: {fileID: 2800000, guid: 2eb106ac7cd568143a72ff53a3642420, type: 3}
+  Pontos: {fileID: 955013056}
 --- !u!1 &652206028 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1063500868937916, guid: 35861510587b7489780fe86970823679, type: 3}
@@ -2161,11 +2162,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1063500868937916, guid: 35861510587b7489780fe86970823679, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1374577511837298, guid: 35861510587b7489780fe86970823679, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1970285528785158, guid: 35861510587b7489780fe86970823679, type: 3}
       propertyPath: m_IsActive
@@ -2669,7 +2670,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1707419782}
-  m_LocalRotation: {x: 0.32050136, y: -1e-45, z: 1e-45, w: 0.9472481}
+  m_LocalRotation: {x: 0.32050133, y: -1e-45, z: 1e-45, w: 0.9472481}
   m_LocalPosition: {x: 1.6223049, y: 17.809998, z: -22.28}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2894,7 +2895,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1835792822}
-  m_LocalRotation: {x: 0.32050136, y: -1e-45, z: 1e-45, w: 0.9472481}
+  m_LocalRotation: {x: 0.32050133, y: -1e-45, z: 1e-45, w: 0.9472481}
   m_LocalPosition: {x: 1.6223049, y: 17.809998, z: -22.28}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
