@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
+using Photon.Pun;
+using Photon.Realtime;
 
 public class Player : MonoBehaviour
 {
@@ -21,6 +23,10 @@ public class Player : MonoBehaviour
     public int Pontos;
     public int DelayShot;
     bool NewShot;
+    public PhotonView PhotonView;
+    public LineRenderer Line;
+
+
     #endregion
 
     #region Awake
@@ -44,10 +50,14 @@ public class Player : MonoBehaviour
     #region Update
     void Update()
     {
-        if (gameManager.instance.GameOuver) return;
-        Debug.Log(Life);
-        target();
-        SetAnimation();
+        if (PhotonView.IsMine)
+        {
+            if (gameManager.instance.GameOuver) return;
+            // Debug.Log(Life);
+            target();
+            SetAnimation();
+
+        }
     }
     #endregion
 
@@ -62,9 +72,11 @@ public class Player : MonoBehaviour
     #region Movimento
     void Movimento()
     {
-
         Input = new Vector3(UnityEngine.Input.GetAxis("Horizontal"), 0, UnityEngine.Input.GetAxis("Vertical"));
         PlayerRigidbody.MovePosition(PlayerRigidbody.position + Input * Vel * Time.deltaTime);
+
+        if (Input != Vector3.zero)
+            transform.forward = Input;
     }
     #endregion
 
@@ -81,18 +93,17 @@ public class Player : MonoBehaviour
     #region Target
     void target()
     {
-        Ray ray = Camera.main.ScreenPointToRay(UnityEngine.Input.mousePosition);
+
+        Ray ray = new Ray(Look.transform.position, Look.transform.forward);
         RaycastHit raycastHit;
-
-        PlayerRigidbody.transform.LookAt(new Vector3(Look.transform.position.x, 0, Look.transform.position.z), Look.transform.up);
-
         if (Physics.Raycast(ray, out raycastHit))
-            Look.transform.position = raycastHit.point;
+            Line.SetPosition(1, new Vector3(0, 0, raycastHit.point.x));
 
-        if (NewShot == true && UnityEngine.Input.GetMouseButtonUp(0))
+        if (Physics.Raycast(ray, out raycastHit) && NewShot == true && UnityEngine.Input.GetKeyDown(KeyCode.Space))
+        {
             Shot(raycastHit, ray);
 
-
+        }
     }
     #endregion
 

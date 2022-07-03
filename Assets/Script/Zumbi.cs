@@ -63,7 +63,7 @@ public class Zumbi : MonoBehaviour
     #region Dano
     void Dano()
     {
-        if (Vector3.Distance(Player.instance.transform.position, transform.position) <= 2)
+        if (Vector3.Distance(Player.instance.transform.position, transform.position) <= 2.5f)
             Player.instance.Life -= 25;
 
     }

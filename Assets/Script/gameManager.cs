@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
+using UnityEngine.SceneManagement;
 
 public class gameManager : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class gameManager : MonoBehaviour
     #region Start
     void Start()
     {
+
         Respawn();
 
     }
@@ -38,11 +40,13 @@ public class gameManager : MonoBehaviour
     public async void Respawn()
     {
         await Task.Delay(2000);
-        if (gameManager.instance.GameOuver) return;
         for (int i = 0; i < NzumbiInicio;)
         {
+
+            if (gameManager.instance.GameOuver || Application.isPlaying == false) break;
             Respawn_1.GetComponent<Pool>().respawn("Zumbi", Respawn_1.transform).transform.GetChild(Random.Range(1, 27)).gameObject.SetActive(true);
             await Task.Delay(2000);
+            if (gameManager.instance.GameOuver || Application.isPlaying == false) break;
             Respawn_2.GetComponent<Pool>().respawn("Zumbi", Respawn_2.transform).transform.GetChild(Random.Range(1, 27)).gameObject.SetActive(true);
             await Task.Delay(2000);
             i++;
