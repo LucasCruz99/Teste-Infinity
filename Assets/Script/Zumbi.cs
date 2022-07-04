@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
 public class Zumbi : MonoBehaviour
 {
@@ -31,8 +33,13 @@ public class Zumbi : MonoBehaviour
     void Update()
     {
         if (gameManager.instance.GameOuver) return;
+        if (Player.instance == null) return;
+
+
         FollowPlayer();
         Atack();
+
+
     }
     #endregion
 
@@ -63,8 +70,12 @@ public class Zumbi : MonoBehaviour
     #region Dano
     void Dano()
     {
-        if (Vector3.Distance(Player.instance.transform.position, transform.position) <= 2.5f)
-            Player.instance.Life -= 25;
+        if (Player.instance.PhotonView.IsMine)
+        {
+            if (Vector3.Distance(Player.instance.transform.position, transform.position) <= 2.5f)
+                Player.instance.Life -= 25;
+
+        }
 
     }
     #endregion

@@ -630,6 +630,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vel: 1
+  PhotonView: {fileID: 0}
 --- !u!136 &5402591002974147904
 CapsuleCollider:
   m_ObjectHideFlags: 0

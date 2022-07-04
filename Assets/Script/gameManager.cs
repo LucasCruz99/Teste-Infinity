@@ -1,16 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 using System.Threading.Tasks;
 using UnityEngine.SceneManagement;
+using System.IO;
 
-public class gameManager : MonoBehaviour
+public class gameManager : MonoBehaviourPunCallbacks
 {
     #region Variable
     public GameObject Respawn_1, Respawn_2;
     public static gameManager instance;
     public int NzumbiInicio;
     public bool GameOuver;
+    int NPlayer;
+    public string LocalPlayer;
+    bool zum;
     #endregion
 
     #region Awake
@@ -24,7 +30,12 @@ public class gameManager : MonoBehaviour
     void Start()
     {
 
-        Respawn();
+        if (GameConnetic.instace.NaSala == false) return;
+
+        photonView.RPC("addPlayer", RpcTarget.AllBuffered);
+
+
+
 
     }
     #endregion
@@ -32,13 +43,17 @@ public class gameManager : MonoBehaviour
     #region Update
     void Update()
     {
+        if (GameConnetic.instace.NaSala == false) return;
 
+        if (zum == false)
+            Respawn();
     }
     #endregion
 
     #region Respaw
     public async void Respawn()
     {
+        zum = true;
         await Task.Delay(2000);
         for (int i = 0; i < NzumbiInicio;)
         {
@@ -51,6 +66,25 @@ public class gameManager : MonoBehaviour
             await Task.Delay(2000);
             i++;
         }
+
+
     }
     #endregion
+
+    [PunRPC]
+    void addPlayer()
+    {
+        NPlayer++;
+
+        CreatPlayer();
+
+    }
+
+    void CreatPlayer()
+    {
+        PhotonNetwork.Instantiate("Personagens", Vector3.zero, Quaternion.identity);
+        // PhotonNetwork.Instantiate(LocalPlayer, Vector3.zero, Quaternion.identity);
+
+    }
+
 }

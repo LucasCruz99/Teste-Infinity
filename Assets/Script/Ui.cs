@@ -23,6 +23,8 @@ public class Ui : MonoBehaviour
     #region Update
     void Update()
     {
+        if (Player.instance == null) return;
+
         PontosMarcado();
         vida();
         GameOver();
@@ -39,12 +41,12 @@ public class Ui : MonoBehaviour
         else if (PlayerPrefs.GetInt("score2") < PlayerPrefs.GetInt("score1") && PlayerPrefs.GetInt("score2") > PlayerPrefs.GetInt("score3"))
         {
             PlayerPrefs.SetInt("score2", Player.instance.Pontos);
-           
+
         }
         else if (PlayerPrefs.GetInt("score3") < PlayerPrefs.GetInt("score2") && PlayerPrefs.GetInt("score3") != PlayerPrefs.GetInt("score2"))
         {
             PlayerPrefs.SetInt("score3", Player.instance.Pontos);
-           
+
         }
 
     }

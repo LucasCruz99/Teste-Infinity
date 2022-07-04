@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
+using System.IO;
 using Photon.Pun;
 using Photon.Realtime;
+using Cinemachine;
 
 public class Player : MonoBehaviour
 {
@@ -25,8 +27,8 @@ public class Player : MonoBehaviour
     bool NewShot;
     public PhotonView PhotonView;
     public LineRenderer Line;
-
-
+    public GameObject MyAvatar;
+    CinemachineVirtualCamera VirtualCamera;
     #endregion
 
     #region Awake
@@ -44,6 +46,15 @@ public class Player : MonoBehaviour
         NewShot = true;
         Life = 100;
         Desert.SetActive(true);
+        if (PhotonView.IsMine)
+        {
+            VirtualCamera = FindObjectOfType<CinemachineVirtualCamera>();
+            VirtualCamera.Follow = transform;
+        }
+       
+
+
+
     }
     #endregion
 
@@ -65,7 +76,8 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         if (gameManager.instance.GameOuver) return;
-        Movimento();
+        if (PhotonView.IsMine)
+            Movimento();
     }
     #endregion
 
@@ -108,6 +120,7 @@ public class Player : MonoBehaviour
     #endregion
 
     #region Shot
+
     async void Shot(RaycastHit RaycastHit, Ray ray)
     {
 
