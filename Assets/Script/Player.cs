@@ -14,8 +14,7 @@ public class Player : MonoBehaviour
     Animator PlayerAnimator;
     public float Vel;
     public int Life;
-    Vector3 Input;
-    public GameObject Look;
+    Vector3 Inputt;
     public GameObject Smg;
     public GameObject Desert;
     public GameObject ArmaDePregos;
@@ -26,7 +25,6 @@ public class Player : MonoBehaviour
     public int DelayShot;
     bool NewShot;
     public PhotonView PhotonView;
-    public LineRenderer Line;
     public GameObject MyAvatar;
     CinemachineVirtualCamera VirtualCamera;
     #endregion
@@ -46,22 +44,19 @@ public class Player : MonoBehaviour
         NewShot = true;
         Life = 100;
         Desert.SetActive(true);
-        if (PhotonView.IsMine)
+
+        if (PhotonView.IsMine || gameManager.instance.SiglePlayer)
         {
             VirtualCamera = FindObjectOfType<CinemachineVirtualCamera>();
             VirtualCamera.Follow = transform;
         }
-       
-
-
-
     }
     #endregion
 
     #region Update
     void Update()
     {
-        if (PhotonView.IsMine)
+        if (PhotonView.IsMine || gameManager.instance.SiglePlayer)
         {
             if (gameManager.instance.GameOuver) return;
             // Debug.Log(Life);
@@ -76,7 +71,7 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         if (gameManager.instance.GameOuver) return;
-        if (PhotonView.IsMine)
+        if (PhotonView.IsMine || gameManager.instance.SiglePlayer)
             Movimento();
     }
     #endregion
@@ -84,18 +79,18 @@ public class Player : MonoBehaviour
     #region Movimento
     void Movimento()
     {
-        Input = new Vector3(UnityEngine.Input.GetAxis("Horizontal"), 0, UnityEngine.Input.GetAxis("Vertical"));
-        PlayerRigidbody.MovePosition(PlayerRigidbody.position + Input * Vel * Time.deltaTime);
+        Inputt = new Vector3(UnityEngine.Input.GetAxis("Horizontal"), 0, UnityEngine.Input.GetAxis("Vertical"));
+        PlayerRigidbody.MovePosition(PlayerRigidbody.position + Inputt * Vel * Time.deltaTime);
 
-        if (Input != Vector3.zero)
-            transform.forward = Input;
+        //  if (Inputt != Vector3.zero)
+        //      transform.forward = Inputt;
     }
     #endregion
 
     #region SetAnimation
     void SetAnimation()
     {
-        if (Input != Vector3.zero)
+        if (Inputt != Vector3.zero)
             PlayerAnimator.SetBool("Correr", true);
         else
             PlayerAnimator.SetBool("Correr", false);
@@ -106,13 +101,20 @@ public class Player : MonoBehaviour
     void target()
     {
 
-        Ray ray = new Ray(Look.transform.position, Look.transform.forward);
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit raycastHit;
         if (Physics.Raycast(ray, out raycastHit))
-            Line.SetPosition(1, new Vector3(0, 0, raycastHit.point.x));
-
-        if (Physics.Raycast(ray, out raycastHit) && NewShot == true && UnityEngine.Input.GetKeyDown(KeyCode.Space))
         {
+            if (Vector3.Distance(raycastHit.point, transform.position) > 2)
+                transform.LookAt(new Vector3(raycastHit.point.x, 0, raycastHit.point.z), Vector3.up);
+
+
+
+        }
+
+        if (Physics.Raycast(ray, out raycastHit) && NewShot == true && UnityEngine.Input.GetKeyDown(KeyCode.Mouse0))
+        {
+
             Shot(raycastHit, ray);
 
         }

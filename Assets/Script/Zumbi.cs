@@ -35,11 +35,8 @@ public class Zumbi : MonoBehaviour
         if (gameManager.instance.GameOuver) return;
         if (Player.instance == null) return;
 
-
         FollowPlayer();
         Atack();
-
-
     }
     #endregion
 
@@ -70,7 +67,7 @@ public class Zumbi : MonoBehaviour
     #region Dano
     void Dano()
     {
-        if (Player.instance.PhotonView.IsMine)
+        if (Player.instance.PhotonView.IsMine || gameManager.instance.SiglePlayer)
         {
             if (Vector3.Distance(Player.instance.transform.position, transform.position) <= 2.5f)
                 Player.instance.Life -= 25;
